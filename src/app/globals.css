@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── BASE RESET ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background: #000;
+  color: #f5f0eb;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* ─── SELECTION ─── */
+::selection {
+  background: #c49a6c;
+  color: #000;
+}
+
+::-moz-selection {
+  background: #c49a6c;
+  color: #000;
+}
+
+/* ─── SCROLLBAR (Webkit) ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(245, 240, 235, 0.15);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(245, 240, 235, 0.3);
+}
+
+/* ─── FILM GRAIN OVERLAY ─── */
+.film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.04;
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── REVEAL ANIMATION ─── */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-item.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── SPLIT TEXT ANIMATION ─── */
+.split-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.split-char.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── STAGGER ENTRANCE ─── */
+.stagger-enter > * {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-enter.revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── DROP CAP ─── */
+.drop-cap::first-letter {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 4.5em;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.05em;
+  color: #c49a6c;
+  font-weight: 600;
+}
+
+/* ─── HOVER UNDERLINE ─── */
+.hover-underline {
+  position: relative;
+}
+
+.hover-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #c49a6c;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── HAIRLINE BORDER ─── */
+.border-hairline {
+  border-color: rgba(245, 240, 235, 0.12);
+}
+
+/* ─── PAGE ENTRANCE ─── */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageEnter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
